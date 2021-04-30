@@ -7,7 +7,7 @@ int main(int argc, char **argv){
                "    cd - Change the shell working directory.\n"
                "\n"
                "SYNOPSIS\n"
-               "    cd [-L|[-P [-e]] [-@]] [dir]\n"
+               "    cd [dir]\n"
                "\n"
                "DESCRIPTION\n"
                "    Change the shell working directory.\n"
@@ -36,13 +36,7 @@ int main(int argc, char **argv){
                "      -@\ton systems that support it, present a file with extended\n"
                "    \t\tattributes as a directory containing the file attributes\n"
                "    \n"
-               "    The default is to follow symbolic links, as if `-L' were specified.\n"
-               "    `..' is processed by removing the immediately previous pathname component\n"
-               "    back to a slash or the beginning of DIR.\n"
                "    \n"
-               "    Exit Status:\n"
-               "    Returns 0 if the directory is changed, and if $PWD is set successfully when\n"
-               "    -P is used; non-zero otherwise.\n"
                "\n"
                "SEE ALSO\n"
                "    bash(1)\n"
@@ -51,6 +45,7 @@ int main(int argc, char **argv){
                "    GNU bash, version 5.0.17(1)-release (x86_64-redhat-linux-gnu)\n"
                "    Copyright (C) 2019 Free Software Foundation, Inc.\n"
                "    License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n");
+               "AUTHOR\n"
 
     }else if(strcmp(argv[1], "ls")==0){
                 printf("LS(1)                         User Commands                         LS(1)\n"
