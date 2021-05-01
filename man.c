@@ -45,7 +45,7 @@ int main(int argc, char **argv){
                "    GNU bash, version 5.0.17(1)-release (x86_64-redhat-linux-gnu)\n"
                "    Copyright (C) 2019 Free Software Foundation, Inc.\n"
                "    License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n");
-               "AUTHOR\n"
+               "AUTHOR\n";
 
     }else if(strcmp(argv[1], "ls")==0){
                 printf("LS(1)                         User Commands                         LS(1)\n"

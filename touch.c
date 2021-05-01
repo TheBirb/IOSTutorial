@@ -1,5 +1,5 @@
 //
-// Created by Jon Moríñigo on 27/3/21.
+// Created by Jorge Goicoechea on 27/3/21.
 //
 #include <stdio.h>
 #include <unistd.h>

@@ -1,3 +1,6 @@
+//
+// Created by Aleina Pelipian on 22/4/21.
+//
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -67,7 +70,7 @@ int main(int argc, char *argv[]){
     }
     else if(strcmp(argv[1], "grep")==0){
         printf("'grep' prints lines that contain a match for a pattern.\n\n");
-        printf("The grep command consists of three parts in its most basic form. The first part starts with grep, followed by the pattern that you are searching for. \nAfter the string comes the file name that the grep searches through.");
+        printf("The grep command consists of three parts in its most basic form. The first part starts with grep, followed by the pattern that you are searching for. \nAfter the string comes the file name that the grep searches through.\n");
         goto END;
     }
     else if(strcmp(argv[1], "man")==0){

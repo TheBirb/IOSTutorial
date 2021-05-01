@@ -58,8 +58,6 @@ int main(int argc, char *argv[]){
         if((dir=opendir(argv[2]))==NULL){
             printf("%s\n", strerror(errno));
             perror("Couldn't open directory");
-
-            printf("Oh dear, something went wrong with read()! %s\n", strerror(errno));
             return -1;
         }
 
@@ -117,8 +115,7 @@ int main(int argc, char *argv[]){
                 printf(" ");
 
                 // [number of hard links]
-                // "This count keeps track of how many directories have entries for this file.
-                // If the count is ever decremented to zero, then the file itself is discarded as soon as no process still holds it open."
+                // "This count keeps track of how many directories have entries for this file
                 printf("%d ", thestat.st_nlink);
 
                 //[owner]

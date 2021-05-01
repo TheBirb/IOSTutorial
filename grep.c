@@ -3,13 +3,20 @@
 //
 #include<stdio.h>
 #include<string.h>
+#include<unistd.h>
+#include <fcntl.h>
 
-void main(int argc , char *argv[])
+int main(int argc , char *argv[])
 {
+    int fd;
     FILE *fp;
-    char line[100];
-
+    char line[300];
     // initialsing the file pointer to read
+    fd=open(argv[2], O_RDONLY);
+    if(fd<0){
+        perror("open");
+        goto OUT;
+    }
     fp = fopen(argv[2],"r");
 
     // reading line by line and comparing each word in line
@@ -26,4 +33,7 @@ void main(int argc , char *argv[])
         }
     }
     fclose(fp);
+    return 0;
+    OUT:
+    return -1;
 }

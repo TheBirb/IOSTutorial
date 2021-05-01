@@ -1,4 +1,6 @@
-//mv
+//
+//Created by Jorge Goicoechea 30/3/21.
+//
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,7 +13,7 @@ int main(int ac, char* av[])
 {
     char *file= av[1];
     char *location= av[2];
-    char newplace[50];
+    char newplace[300];
 
     if(ac!=3)
         printf("Error:\nWrong arguments\n");
@@ -50,7 +52,6 @@ int main(int ac, char* av[])
                 strcat(newplace,"/");
                 strcat(newplace, file);				// keep original file name
                 if(rename(file,ptrL)!=-1){
-                    printf("Successful\n");
                     link(file, location);
                     unlink(location);
                     
