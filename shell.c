@@ -74,6 +74,7 @@ int indexOfPipe(int argc, char *argv[]){
             return i;
         }
     }
+    return -1;
 }
 //piping with different commands //supports different sizes! ONLY SUPPORTS ONE PIPE! //created by Jon Moríñigo
 int executePiping(int argc, char *argv[]){
@@ -233,7 +234,7 @@ int executePiping(int argc, char *argv[]){
         if(pid==0){
             dup2(fd[1], STDOUT_FILENO);
             close(fd[1]);
-            system(intr1);
+            system(instr1);
         }else{
             pid=fork();
             if(pid==0){
@@ -494,7 +495,15 @@ int executeCommandPrompt(){
             }
 
         }
-        execute(argc, args);
+        if(argc>2){
+            if(indexOfPipe(argc, args)!=-1){
+                executePiping(argc, args);
+            }else{
+                execute(argc, args);
+            }
+        }else{
+            execute(argc, args);
+        }
         if (eof) break;
         if(done==0) break;
     }
