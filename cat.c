@@ -25,9 +25,10 @@ int main(int argc,char *argv[])
 
     if(argc==1){//User want's just stdin
        char buffer[512];
-       scanf("%[^\n]%c", buffer); // we use [^\n]%c to get all the 512 byte line!
+        scanf("%[^\n]%c", buffer); // we use [^\n]%c to get all the 512 byte line!
        printf("%s\n", buffer);
-       return 0;
+       goto QUIT;
+
     }else{
         if(isFile(argv[1])==1){
             int fd, i, ch;
@@ -55,6 +56,7 @@ int main(int argc,char *argv[])
         }
 
     }
-
+    QUIT:
+    return 0;
 }
 

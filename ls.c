@@ -127,9 +127,14 @@ int main(int argc, char *argv[]){
 
                 //size, name and date
                 printf("%4d",thestat.st_size);
-                printf(" %s", currentDir->d_name);
+                char *c=ctime(&thestat.st_mtime);
+                printf(" ");
+                for(i=4; i<15; i++){
+                    printf("%c", c[i]);
+                }
+                printf(" ");
+                printf("%s\n", currentDir->d_name);
 
-                printf(" %s", ctime(&thestat.st_mtime));
             }
 
 

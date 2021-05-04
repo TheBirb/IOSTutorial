@@ -70,194 +70,74 @@ int indexOfPipe(int argc, char *argv[]){
             return i;
         }
     }
+    return -1;
 }
 //piping with different commands //supports different sizes! //created by Jon Moríñigo
-int executePiping(int argc, char *argv[]){
+int executePiping(int argc, char *argv[], int index){
     char instr1[200];
     char instr2[200];
-    int iPipe= indexOfPipe(argc, argv);
-    int type;
+    int iPipe= index;
     /*checking size*/
     if(iPipe==1 && argc==3){
-        type=1;
-    }else if (iPipe==2 && argc==4){
-        type=2;
-    }else if(iPipe==3 && argc==5){
-        type=3;
-    }else if(iPipe==1 && argc==4){
-        type=4;
-    }else if(iPipe==2 && argc==5){
-        type=5;
-    }else if(iPipe==3 && argc==6){
-        type=6;
-    }else if (iPipe==1 && argc==5){
-        type=7;
-    }else if(iPipe==2 && argc==6){
-        type=8;
-    }else{
-        type=9;
-    }
-    //piping
-    pid_t pid;
-    int fd[2];
-    if(type==1){
-
+        sprintf(instr1, "%s", argv[0]);
         sprintf(instr2, "%s %s",argv[3], argv[4]);
-        pipe(fd);
-        pid=fork();
-        if(pid==0){
-            dup2(fd[1], STDOUT_FILENO);
-            close(fd[1]);
-            system(argv[0]);
-        }else{
-            pid=fork();
-            if(pid==0){
-                dup2(fd[0], STDIN_FILENO);
-                close(fd[0]);
-                system(argv[2]);
-            }
-            ;
-        }
-    }else if(type==2) {
+    }else if (iPipe==2 && argc==4){
+        printf("here\n");
         sprintf(instr1, "%s %s",argv[0], argv[1]);
         sprintf(instr2, "%s %s",argv[2], argv[3]);
-        pipe(fd);
-        pid=fork();
-        if(pid==0){
-            dup2(fd[1], STDOUT_FILENO);
-            close(fd[1]);
-            system(instr1);
-        }else{
-            pid=fork();
-            if(pid==0){
-                dup2(fd[0], STDIN_FILENO);
-                close(fd[0]);
-                system(instr2);
-            }
-            ;
-        }
-    }else if(type==3) {
+    }else if(iPipe==3 && argc==5){
         sprintf(instr1, "%s %s %s",argv[0], argv[1], argv[2]);
-
-        pipe(fd);
-        pid=fork();
-        if(pid==0){
-            dup2(fd[1], STDOUT_FILENO);
-            close(fd[1]);
-            system(instr1);
-        }else{
-            pid=fork();
-            if(pid==0){
-                dup2(fd[0], STDIN_FILENO);
-                close(fd[0]);
-                system(argv[4]);
-            }
-            ;
-        }
-    }else if(type==4){
+        sprintf(instr1, "%s", argv[4]);
+    }else if(iPipe==1 && argc==4){
+        sprintf(instr1, "%s", argv[0]);
         sprintf(instr2, "%s %s",argv[2], argv[3]);
-        pipe(fd);
-        pid=fork();
-        if(pid==0){
-            dup2(fd[1], STDOUT_FILENO);
-            close(fd[1]);
-            system(argv[0]);
-        }else{
-            pid=fork();
-            if(pid==0) {
-                dup2(fd[0], STDIN_FILENO);
-                close(fd[0]);
-               system(instr2);
-            }
-        }
-    }else if(type==5) {
-        pipe(fd);
-        pid=fork();
-        if(pid==0){
-            dup2(fd[1], STDOUT_FILENO);
-            close(fd[1]);
-            system(instr5);
-        }else{
-            pid=fork();
-            if(pid==0) {
-                dup2(fd[0], STDIN_FILENO);
-                close(fd[0]);
-                system(instr2);
-            }
-        }
-    }else if(type==6){
-        sprintf(instr1, "%s %s, %s",argv[0], argv[1], argv[2]);
+    }else if(iPipe==2 && argc==5){
+        sprintf(instr1, "%s %s",argv[0], argv[1]);
+        sprintf(instr2, "%s %s",argv[3], argv[4]);
+    }else if(iPipe==3 && argc==6){
+        sprintf(instr1, "%s %s %s",argv[0], argv[1], argv[2]);
         sprintf(instr2, "%s %s",argv[5], argv[6]);
-        pipe(fd);
-        pid=fork();
-        if(pid==0){
-            dup2(fd[1], STDOUT_FILENO);
-            close(fd[1]);
-            system(instr1);
-        }else{
-            pid=fork();
-            if(pid==0){
-                dup2(fd[0], STDIN_FILENO);
-                close(fd[0]);
-                system(instr2);
-            }
-            ;
-        }
-    }else if(type==7){
+    }else if (iPipe==1 && argc==5){
+        sprintf(instr1, "%s", argv[0]);
         sprintf(instr2, "%s %s %s",argv[2], argv[3], argv[4]);
-        pipe(fd);
-        pid=fork();
-        if(pid==0){
-            dup2(fd[1], STDOUT_FILENO);
-            close(fd[1]);
-            system(argv[0]);
-        }else{
-            pid=fork();
-            if(pid==0){
-                dup2(fd[0], STDIN_FILENO);
-                close(fd[0]);
-                system(instr2);
-            }
-
-        }
-    }else if(type==8){
+    }else if(iPipe==2 && argc==6){
         sprintf(instr1, "%s %s",argv[0], argv[1]);
         sprintf(instr2, "%s %s %s",argv[3], argv[4], argv[5]);
-        pipe(fd);
-        pid=fork();
-        if(pid==0){
-            dup2(fd[1], STDOUT_FILENO);
-            close(fd[1]);
-            system(intr1);
-        }else{
-            pid=fork();
-            if(pid==0){
-                dup2(fd[0], STDIN_FILENO);
-                close(fd[0]);
-                system(instr2);
-            }
-            ;
-        }
     }else{
         sprintf(instr1, "%s %s %s",argv[0], argv[1], argv[2]);
         sprintf(instr2, "%s %s %s",argv[4], argv[5], argv[6]);
-        pipe(fd);
+    }
+    int saved_stdout = dup(1);
+    int saved_stdin =dup(0);
+    pid_t pid;
+    int pipefd[2];
+    pipe(pipefd);
+    pid=fork();
+    if(pid==0){
+        close(pipefd[0]);
+        dup2(pipefd[1], 1);
+        system(instr1);
+        exit(0);
+    }else{
+
         pid=fork();
         if(pid==0){
-            dup2(fd[1], STDOUT_FILENO);
-            close(fd[1]);
-            system(instr1);
-        }else{
-            pid=fork();
-            if(pid==0){
-                dup2(fd[0], STDIN_FILENO);
-                close(fd[0]);
-                system(instr2);
-            }
-            ;
+            close(pipefd[1]);
+            dup2(pipefd[0], 0);
+            system(instr2);
+            exit(0);
+
         }
+
+
     }
+
+    dup2(saved_stdout, 1);
+    close(saved_stdout);
+    dup2(saved_stdin, 0);
+    close(saved_stdin);
     return 0;
+
 }
 int execute(int argc, char *argv[])
 {
@@ -305,14 +185,21 @@ int main ()
     while (1) {
         write(0,Prompt, strlen(Prompt));
         if (read_args(&argc, args, MAXARGS, &eof) && argc > 0) {
-            if(argc>2){
-                if(strcmp(args[2], "|")==0){
-                    executePiping(argc, args);
-                }else{
+            for(int i=0; i<argc; i++){
+                printf("%d.%s\n", i, args[i]);
+            }
+            if (argc > 2) {
+                int index= indexOfPipe(argc, args);
+                if (index != -1) {
+                    executePiping(argc, args, index);
+
+                } else {
                     execute(argc, args);
+
                 }
-            }else{
+            } else {
                 execute(argc, args);
+
             }
 
 
