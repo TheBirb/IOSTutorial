@@ -20,6 +20,7 @@ char programPath[200];
 int stage;
 int scene;
 int done;
+int lives;
 char actualPath[200];
 
 char *Prompt;
@@ -74,7 +75,8 @@ int read_args(int* argcp, char* args[], int max, int* eofp)
 ///////////////////////////////////////
 //to check where the pipe is
 int indexOfPipe(int argc, char *argv[]){
-    for(int i=0; i<argc; i++){
+    int i;
+    for(i=0; i<argc; i++){
         if(strcmp(argv[i],"|")==0){
             return i;
         }
