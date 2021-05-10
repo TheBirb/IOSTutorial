@@ -53,7 +53,6 @@ int main(int argc, char *argv[]){
     }else if(argc==3){
         if(strcmp("-l", argv[1])==0){
             if((dir=opendir(argv[2]))==NULL){
-                printf("%s\n", strerror(errno));
                 perror("Couldn't open directory");
                 return -1;
             }
