@@ -367,13 +367,20 @@ int executeCommandPrompt(){
                             char dir[200];
                             getcwd(dir, 200);
                             char actualdir[200];
+                            char dirlvl2[200];
                             sprintf(dir, "%s/%s", dir, args[1]);
                             sprintf(actualdir, "%s%s", programPath,
                                     "TutorialZone/DariusSpellTest/DesertEntrance/Desert");
+                            sprintf(dirlvl2, "%s%s", programPath,
+                                    "TutorialZone/DariusSpellTest/Forest/MaslovenyCastle");
+
                             if (strcmp(actualdir, dir) == 0) {
                                 chdir("Desert");
 
                                 return 4;
+                            }else if(strcmp(dirlvl2,dir)==0){
+                                chdir("MaslovenyCastle");
+                                return 5;
                             }
                         }
                     } else {
@@ -403,9 +410,59 @@ int executeCommandPrompt(){
 
 
 
-                } else {
-                    printf("You can't use those spells here!\n");
-                    return 0;
+                } else if(stage==5) {
+                    switch(scene) {
+                        case 0: //Start
+                            if (strcmp(args[0], "cat") != 0) {
+                                execute(argc, args);
+                                return 4;
+                            } else if (strcmp(args[1], "varonesa") != 0) {
+                                return 4;
+                            } else if (argc < 1) {
+                                return 3;
+                            } else {
+                                done = 0;
+                            }
+                            break;
+                        case 1: // learning your spells
+                            if (strcmp(args[0], "cat") != 0) {
+                                execute(argc, args);
+                                return 4;
+                            } else if (strcmp(args[1], "info") != 0) {
+                                return 4;
+                            } else if (argc < 1) {
+                                return 3;
+                            } else {
+                                done = 0;
+                            }
+                            break;
+                        case 2: //learning attack
+                            if (strcmp(args[0], "cat") != 0) {
+                                execute(argc, args);
+                                return 4;
+                            } else if (strcmp(args[1], "shoot") != 0) {
+                                return 4;
+                            } else if (argc < 1) {
+                                return 3;
+                            } else {
+                                done = 0;
+                            }
+                            break;
+                        case 3: // battle
+                            if (strcmp(args[0], "cat") != 0) {
+                                execute(argc, args);
+                                return 4;
+                            }else if (strcmp(args[1], "shoot") != 0) {
+                                return 2;
+                            }else if(argc<1){
+                                return 3;
+                            }else{
+                                done=0;
+                            }
+                            break;
+                        default:
+                            return 0;
+                    }
                 }
 
                 if (argc > 2) {
@@ -948,35 +1005,233 @@ int executeCommandPrompt(){
         scene=3;
         return 0;
     }
+    void MaslovenyCastle(){
+    char *warning1="LEVEL 2: Write the instruction correctly!\n"; //instruction is not the expected one
+    char *warning2="LEVEL 2: Write the directory correctly!\n";  // directory is no the expected one
+    char *question;
+    char *answer;
+    int i;
+    int trys;
+    lives = 5;
+    //Intro
+
+    char *message = " _     _______     _______ _       ____  \n"
+                    "| |   | ____\\ \\   / / ____| |     |___ \\ \n"
+                    "| |   |  _|  \\ \\ / /|  _| | |       __) |\n"
+                    "| |___| |___  \\ V / | |___| |___   / __/ \n"
+                    "|_____|_____|  \\_/  |_____|_____| |_____|\n"
+                    "                                         \n";
+    printf("%s", message);
+    message="[DARIUS]: Welcome to 2nd level of Codeland!\n";
+    printf("%s", message);
+    enterDetector();
+    message="[DARIUS]: Here you will fight against a boss that lives on Codeland.\n";
+    printf("%s", message);
+    enterDetector();
+    question ="[DARIUS]: Are you ready for this?\n";
+    printf("%s", question);
+    message="[DARIUS]: Type 1 or 2 to answer the question\n";
+    answer="1:Yes\n";
+    printf("%s", answer);
+    answer="2:No\n";
+    printf("%s", answer);
+    printf("%s", message);
+    char select[1];
+    read(0, select, sizeof select);
+    enterDetector();
+    if(strcmp(select,"1")==0){
+        message="[DARIUS]: Be ready for fight against the most powerfull lady of Codeland!\n";
+        printf("%s", message);
+    }else{
+        message="[DARIUS]: I thought you were more braver...\n";
+        printf("%s", message);
+    }
+    //stage==2--------------------------------------------------------------------------------------
+    //scene 0 Start
+    scene=0;
+    message="[DARIUS]: Let's begin.\n";
+    printf("%s", message);
+    message="[DARIUS]: You have 5 lives, each live will be show like hearts (♥) \n";
+    printf("%s", message);
+    message="[DARIUS]: First off all you have to know a little bit about the lady.\nUse your knowledge about bash commands for explore directories and files.\n";
+    printf("%s", message);
+    enterDetector();
+    i=4;
+    done=1;
+    trys = 0;
+    while(i!=0) {
+        updateLives();
+        i = executeCommandPrompt();
+        trys = trys + 1;
+        if (trys > 3) {
+            message="TIP: Use 'cd' command for explore directories and 'cat' command for read files. If you are lost can use the map ('pwd' command) for know where you are.\n";
+            trys = 0;
+            printf("%s", message);
+        }else{
+            if (i == 1) {
+                printf("%s", warning1);
+            } else if (i == 3) {
+                printf("%s", warning2);
+            }
+        }
+    }
+    enterDetector();
+    //scene 1   learning your spells
+    scene=1;
+    message="[DARIUS]: Well done! Now we know something about this rare lady...\nNow you have to learn about your spells. Keep exploring directories.\n";
+    printf("%s", message);
+    enterDetector();
+    i=4;
+    done=1;
+    trys = 0;
+    while(i!=0) {
+        updateLives();
+        i = executeCommandPrompt();
+        trys = trys + 1;
+        if (trys > 3) {
+            message="TIP: Use 'cd' command for explore directories and 'cat' command for read files. If you are lost can use the map ('pwd' command) for know where you are.\n";
+            trys = 0;
+            printf("%s", message);
+        }else{
+            if (i == 1) {
+                printf("%s", warning1);
+            } else if (i == 3) {
+                printf("%s", warning2);
+            }
+        }
+    }
+    enterDetector();
+    //scene 2 learning attack
+    scene=2;
+    message="[DARIUS]: Well done! Now you will learn how to attack. Keep exploring your spells directory\n";
+    printf("%s", message);
+    enterDetector();
+    i=4;
+    done=1;
+    trys = 0;
+    while(i!=0) {
+        updateLives();
+        i = executeCommandPrompt();
+        trys = trys + 1;
+        if (trys > 3) {
+            message="TIP: Use 'cd' command for explore directories and 'cat' command for read files. If you are lost can use the map ('pwd' command) for know where you are.\n";
+            trys = 0;
+            printf("%s", message);
+        }else{
+            if (i == 1) {
+                printf("%s", warning1);
+            } else if (i == 3) {
+                printf("%s", warning2);
+            }
+        }
+    }
+    enterDetector();
+    //scene 3 battle
+    scene=3;
+    message="[DARIUS]: Now you are ready for the battle! Let's battle began\n";
+    printf("%s", message);
+    message="[DARIUS]: For kill Varonesa you will have to do the correct spells sequence\n";
+    printf("%s", message);
+    enterDetector();
+    i=4;
+    done=1;
+    trys = 0;
+    int combo = 0;
+    while(combo<3) {
+        updateLives();
+        i = executeCommandPrompt();
+        trys = trys + 1;
+        if (trys > 3) {
+            message="TIP: Use 'cd' command for explore directories and 'cat' command for read files. If you are lost can use the map ('pwd' command) for know where you are.\n";
+            trys = 0;
+            printf("%s", message);
+        }else{
+            if (i == 1) {
+                printf("%s", warning1);
+            } else if (i == 3) {
+                printf("%s", warning2);
+            }
+        }
+        char cwd[200];
+        if(i==0){
+            if(combo==0){
+                if (strcmp(getcwd(cwd, sizeof(cwd)), "/home/jon/CLionProjects/IOSproyect/TutorialZone/DariusSpellTest/Forest/MaslovenyCastle/myspells/fireball") == 0 ){
+                    message="[DARIUS]: HOHOHOHO! That had to hurt!\n";
+                    printf("%s", message);
+                    combo=1;
+                }else{
+                    //quitar vida
+                    message="[DARIUS]: Maybe that isn't the correct first spell...\n";
+                    printf("%s", message);
+                    lives--;
+                }
+            }else if (combo==1){
+                if (strcmp(getcwd(cwd, sizeof(cwd)), "/home/jon/CLionProjects/IOSproyect/TutorialZone/DariusSpellTest/Forest/MaslovenyCastle/myspells/frostbolt") == 0 ){
+                    message="[DARIUS]: Oooh nice! I can feel how cold it must be.\n";
+                    printf("%s", message);
+                    combo=2;
+                }else{
+                    //quitar vida
+                    message="[DARIUS]: She is hot from fireball maybe you have to calm...\n";
+                    printf("%s", message);
+                    lives--;
+
+                }
+            }else if (combo==2){
+                if (strcmp(getcwd(cwd, sizeof(cwd)), "/home/jon/CLionProjects/IOSproyect/TutorialZone/DariusSpellTest/Forest/MaslovenyCastle/myspells/electric_Shock") == 0 ){
+                    message="[DARIUS]: Well! Look how it moves, it looks like a fish hahahahhaha!\n";
+                    printf("%s", message);
+                    combo=3;
+                }else{
+                    //quitar vida
+                    message="[DARIUS]: Nah this is not how it ends, let's try play with chemical reactions\n";
+                    printf("%s", message);
+                    lives--;
+                }
+            }
+        }
+    }
+    message="[DARIUS]: Nice! You killed Varonesa! Great job!\n";
+    printf("%s", message);
+    enterDetector();
+}
+void updateLives(){
+    int i = 0;
+    while (i<5){
+        printf("(♥)");
+        i++;
+    }
+    printf("\n");
+}
     int main() {
     getcwd(programPath, sizeof programPath);
     getcwd(actualPath, sizeof actualPath);
    sprintf(programPath, "%s/", programPath);
-//    stage=0;
-//  scene=0;
-//    tutorialStage();
-//    stage=1;
-//    scene=0;
-//    char *message="[SIMULATION SYSTEM]: SIMULATION END SEQUENCE INITIALIZED, PLEASE INSERT PASSWORD TO CONFIRM\n";
-//    write(1, message, strlen(message));
-//    char received[100];
-//    int r;
-//    struct termios saved_tm;
-//    while(1) {
-//        setTermNoCanon(&saved_tm);
-//        scanf("%s", received);
-//        recover_tm(&saved_tm);
-//        if(strcmp(received, "DARIUSFINALTEST")==0){
-//
-//           printf("PASSWORD CONFIRMED\n");
-//            break;
-//        }
-//    }
-//    printf("\n");
-//    printf("\n");
-//    printf("\n");
-//    printf("\n");
-//    dariusSpellTest();
+    stage=0;
+  scene=0;
+    tutorialStage();
+    stage=1;
+    scene=0;
+    char *message="[SIMULATION SYSTEM]: SIMULATION END SEQUENCE INITIALIZED, PLEASE INSERT PASSWORD TO CONFIRM\n";
+    write(1, message, strlen(message));
+    char received[100];
+    int r;
+    struct termios saved_tm;
+    while(1) {
+        setTermNoCanon(&saved_tm);
+        scanf("%s", received);
+        recover_tm(&saved_tm);
+        if(strcmp(received, "DARIUSFINALTEST")==0){
+
+           printf("PASSWORD CONFIRMED\n");
+            break;
+        }
+    }
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    dariusSpellTest();
         stage = 3;
         scene = 0;
         int where = 0;
