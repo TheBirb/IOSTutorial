@@ -24,7 +24,6 @@ int main(int argc, char *argv[]){
     int type;
     char currentPath[200];
     char programPath[200];
-
     if(argc <1) {
 
         exit(EXIT_FAILURE);
@@ -46,23 +45,30 @@ int main(int argc, char *argv[]){
         }else {
             if ((dir = opendir(argv[1])) == NULL) {
                 perror("Couldn't open directory");
-
-
                 return -1;
             }
 
             type = 1;
         }
-    }else{
-
-        if((dir=opendir(argv[2]))==NULL){
-            printf("%s\n", strerror(errno));
-            perror("Couldn't open directory");
+    }else if(argc==3){
+        if(strcmp("-l", argv[1])==0){
+            if((dir=opendir(argv[2]))==NULL){
+                printf("%s\n", strerror(errno));
+                perror("Couldn't open directory");
+                return -1;
+            }
+            type=3;
+        }else{
+            printf("Too many arguments!\n");
             return -1;
         }
 
-        type=3;
 
+        ;
+
+    }else{
+        printf("Too many arguments!\n");
+        return -1;
     }
 
     if(type==1){
