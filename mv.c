@@ -28,7 +28,7 @@ int main(int ac, char* av[])
                 link(file, location);
                 
             }else{
-                printf("Error:\nDirectory not found\n");
+                printf("Error:\nDirectory or file not found\n");
             }
         }
         else
@@ -56,7 +56,7 @@ int main(int ac, char* av[])
                     unlink(location);
                     
                 }else
-                    printf("Error:\nDirectory not found \n");
+                    printf("Error:\nDirectory or file not found \n");
                     
                 closedir(isD);
             }
