@@ -144,7 +144,7 @@ int main(int argc, char **argv){
                "\n"
                "AUTHORS\n"
                "     Written by Jon Da Silva, Alexandra Aleina Pelipian");
-    }else if(strcmp(argv[1], "help")==0)
+    }else if(strcmp(argv[1], "help")==0){
         printf("NAME\n"
                "    help - Display information about builtin commands.\n"
                "\n"
@@ -159,4 +159,5 @@ int main(int argc, char **argv){
                "\n"
                "AUTHORS\n"
                "    Written by Alexandra Aleina Pelipian\n");
+    } else printf("Invalid command. Try again.");
 }
